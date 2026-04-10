@@ -5,7 +5,6 @@ import { WelcomeStep } from '@/components/steps/WelcomeStep';
 import { QuizStep } from '@/components/steps/QuizStep';
 import { CalculatingStep } from '@/components/steps/CalculatingStep';
 import { ResultStep } from '@/components/steps/ResultStep';
-import { TypeDetailModal } from '@/components/TypeDetailModal';
 import {
   TestLength,
   Answers,
@@ -34,7 +33,6 @@ export default function Home() {
   });
   const [isHydrated, setIsHydrated] = useState(false);
 
-  const [showTypeModal, setShowTypeModal] = useState(false);
   const [previousResult, setPreviousResult] = useState<QuizResult | null>(null);
   const [savedProgress, setSavedProgress] = useState<QuizProgress | null>(null);
 
@@ -243,7 +241,6 @@ export default function Home() {
             answers={state.answers}
             maxScores={maxScores}
             onRestart={handleRestart}
-            onViewOtherTypes={() => setShowTypeModal(true)}
           />
         );
 
@@ -252,15 +249,5 @@ export default function Home() {
     }
   };
 
-  return (
-    <>
-      {renderStep()}
-      <TypeDetailModal
-        key={`type-modal-${state.result ?? 'none'}`}
-        open={showTypeModal}
-        onOpenChange={setShowTypeModal}
-        initialType={state.result || undefined}
-      />
-    </>
-  );
+  return renderStep();
 }

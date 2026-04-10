@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { MBTIType, Answers, PersonalityType } from '@/lib/types';
 import { getTypeByCode } from '@/lib/data';
 import { getDimensionPercentages, formatDimensionLabel } from '@/lib/calculateMBTI';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -26,10 +27,9 @@ interface ResultStepProps {
   answers: Answers;
   maxScores: Record<keyof Answers, number>;
   onRestart: () => void;
-  onViewOtherTypes: () => void;
 }
 
-export function ResultStep({ type, answers, maxScores, onRestart, onViewOtherTypes }: ResultStepProps) {
+export function ResultStep({ type, answers, maxScores, onRestart }: ResultStepProps) {
   const [showDetails, setShowDetails] = useState(false);
   const personality = getTypeByCode(type) as PersonalityType;
   const percentages = getDimensionPercentages(answers, maxScores);
@@ -284,9 +284,12 @@ export function ResultStep({ type, answers, maxScores, onRestart, onViewOtherTyp
             <RefreshCw className="w-4 h-4 mr-2" />
             重新测试
           </Button>
-          <Button onClick={onViewOtherTypes} className="flex-1">
+          <Link
+            href={`/types?current=${type}`}
+            className={`${buttonVariants()} flex-1`}
+          >
             查看其他类型
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

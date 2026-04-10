@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Question, Answers } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 interface QuizStepProps {
   questions: Question[];
@@ -26,39 +26,18 @@ export function QuizStep({
   onAnswer,
   onComplete
 }: QuizStepProps) {
-  const AUTO_ADVANCE_DELAY = 450;
   const [currentIndex, setCurrentIndex] = useState(initialQuestion);
   const [selectedValue, setSelectedValue] = useState<1 | -1 | null>(
     initialQuestionSelections[initialQuestion] ?? null
   );
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
   const [questionSelections, setQuestionSelections] = useState<Array<1 | -1 | null>>(initialQuestionSelections);
-  const [pendingAutoAdvance, setPendingAutoAdvance] = useState(false);
-  const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const currentQuestion = questions[currentIndex];
   const progress = ((currentIndex + 1) / questions.length) * 100;
   const isLastQuestion = currentIndex === questions.length - 1;
-  const canProceed = selectedValue !== null;
-
-  const clearAutoAdvance = () => {
-    if (autoAdvanceTimerRef.current) {
-      clearTimeout(autoAdvanceTimerRef.current);
-      autoAdvanceTimerRef.current = null;
-    }
-    setPendingAutoAdvance(false);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (autoAdvanceTimerRef.current) {
-        clearTimeout(autoAdvanceTimerRef.current);
-      }
-    };
-  }, []);
 
   const submitAnswer = (value: 1 | -1) => {
-    clearAutoAdvance();
     setSelectedValue(value);
 
     const previousValue = questionSelections[currentIndex] ?? 0;
@@ -86,25 +65,11 @@ export function QuizStep({
   };
 
   const handleSelect = (value: 1 | -1) => {
-    setSelectedValue(value);
-    setPendingAutoAdvance(true);
-    if (autoAdvanceTimerRef.current) {
-      clearTimeout(autoAdvanceTimerRef.current);
-    }
-
-    autoAdvanceTimerRef.current = setTimeout(() => {
-      submitAnswer(value);
-    }, AUTO_ADVANCE_DELAY);
-  };
-
-  const handleNext = () => {
-    if (selectedValue === null) return;
-    submitAnswer(selectedValue);
+    submitAnswer(value);
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
-      clearAutoAdvance();
       const nextIndex = currentIndex - 1;
       setCurrentIndex(nextIndex);
       onQuestionChange(nextIndex);
@@ -150,41 +115,20 @@ export function QuizStep({
                 </button>
               ))}
             </div>
-            {pendingAutoAdvance && (
-              <div className="flex items-center justify-between rounded-md border bg-muted/40 px-3 py-2 text-sm">
-                <span>已选择，正在自动跳转下一题...</span>
-                <button
-                  type="button"
-                  onClick={clearAutoAdvance}
-                  className="font-medium text-primary hover:underline"
-                >
-                  撤销
-                </button>
-              </div>
-            )}
           </div>
         </Card>
       </div>
 
       {/* 底部导航按钮 */}
-      <div className="w-full max-w-2xl mx-auto flex gap-3 mt-6">
+      <div className="w-full max-w-2xl mx-auto mt-6">
         <Button
           onClick={handlePrevious}
           disabled={currentIndex === 0}
           variant="outline"
-          className="flex-1 touch-target"
+          className="w-full touch-target"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
           上一题
-        </Button>
-
-        <Button
-          onClick={handleNext}
-          disabled={!canProceed}
-          className="flex-1 touch-target"
-        >
-          {isLastQuestion ? '查看结果' : '下一题'}
-          <ChevronRight className="w-4 h-4 ml-1" />
         </Button>
       </div>
     </div>

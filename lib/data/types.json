@@ -1,0 +1,473 @@
+[
+  {
+    "type": "INTJ",
+    "name": "建筑师",
+    "nameEn": "Architect",
+    "group": "analyst",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "富有想象力和战略性的思想家",
+    "description": "建筑师型人格是天生的战略家，具有强烈的原创性思维和独立自主的特质。他们既有驱动力又有决心去实现目标，无论这些目标是什么。",
+    "traits": ["独立", "战略", "完美主义", "效率", "分析"],
+    "strengths": ["战略思维", "高度专注", "独立自主", "理性分析", "追求知识"],
+    "weaknesses": ["过度批判", "过分独立", "缺乏耐心", "社交疲劳", "傲慢"],
+    "careers": ["软件架构师", "科学家", "战略顾问", "投资分析师", "大学教授", "系统分析师"],
+    "compatibility": {
+      "best": ["ENTP", "ENFP"],
+      "similar": ["INFJ", "INTP"],
+      "challenging": ["ESFP", "ESTP"]
+    },
+    "celebrities": [
+      { "name": "埃隆·马斯克", "role": "企业家" },
+      { "name": "艾萨克·牛顿", "role": "科学家" },
+      { "name": "释迦牟尼", "role": "思想家" }
+    ],
+    "growth": ["学会接受反馈", "培养同理心", "放松完美主义", "多与外界交流"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "INTP",
+    "name": "逻辑学家",
+    "nameEn": "Logician",
+    "group": "analyst",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "具有创新性的发明家，对知识有着止不住的渴望",
+    "description": "逻辑学家型人格以其独特的视角和旺盛的智力而自豪。他们无法忍受无聊的事物，虽然他们经常陷入思考中，但这正是他们的魅力所在。",
+    "traits": ["逻辑", "好奇", "灵活", "抽象", "独立"],
+    "strengths": ["分析能力", "原创思维", "开放思想", "客观理性", "诚实直率"],
+    "weaknesses": ["拖延", "缺乏耐心", "社交笨拙", "过度分析", "情感疏离"],
+    "careers": ["研究员", "程序员", "哲学家", "数学家", "数据分析师", "大学教授"],
+    "compatibility": {
+      "best": ["ENTJ", "ESTJ"],
+      "similar": ["INTJ", "INFP"],
+      "challenging": ["ESFJ", "ESTJ"]
+    },
+    "celebrities": [
+      { "name": "爱因斯坦", "role": "物理学家" },
+      { "name": "苏格拉底", "role": "哲学家" }
+    ],
+    "growth": ["培养执行力", "增强情感意识", "学会关注他人", "接受不完美"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ENTJ",
+    "name": "指挥官",
+    "nameEn": "Commander",
+    "group": "analyst",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "大胆、富有想象力且意志强大的领导者",
+    "description": "指挥官型人格天生就是领导者，他们拥有魅力、自信和权威，能够激励他人为共同目标而努力。",
+    "traits": ["领导力", "自信", "战略", "果断", "野心"],
+    "strengths": ["领导能力", "战略思维", "高效执行", "目标导向", "自信果断"],
+    "weaknesses": ["过于强势", "缺乏耐心", "不容忍失败", "情感淡漠", "控制欲强"],
+    "careers": ["CEO", "管理顾问", "律师", "政治家", "企业家", "项目经理"],
+    "compatibility": {
+      "best": ["INFP", "INTP"],
+      "similar": ["ENTP", "INTJ"],
+      "challenging": ["ISFP", "INFP"]
+    },
+    "celebrities": [
+      { "name": "史蒂夫·乔布斯", "role": "企业家" },
+      { "name": "玛格丽特·撒切尔", "role": "政治家" }
+    ],
+    "growth": ["培养同理心", "学会倾听", "放松控制", "欣赏多样性"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ENTP",
+    "name": "辩论家",
+    "nameEn": "Debater",
+    "group": "analyst",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "聪明好奇的思想者，无法抗拒智力上的挑战",
+    "description": "辩论家型人格是真正的魔鬼代言人，他们以拆解和重建想法、观念、方法和人为乐，无论是为了娱乐还是为了实现某种更深层的目标。",
+    "traits": ["机智", "创新", "好奇", "灵活", "善辩"],
+    "strengths": ["知识渊博", "思维敏捷", "原创性强", "魅力十足", "精力充沛"],
+    "weaknesses": ["好辩", "注意力分散", "难以专注", "不敏感", "不耐烦"],
+    "careers": ["律师", "顾问", "记者", "创业者", "投资分析师", "市场营销"],
+    "compatibility": {
+      "best": ["INFJ", "INTJ"],
+      "similar": ["ENTJ", "INTP"],
+      "challenging": ["ISFJ", "ISTJ"]
+    },
+    "celebrities": [
+      { "name": "马克·吐温", "role": "作家" },
+      { "name": "本杰明·富兰克林", "role": "发明家" }
+    ],
+    "growth": ["培养专注力", "学会倾听", "控制好辩冲动", "重视他人情感"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "INFJ",
+    "name": "提倡者",
+    "nameEn": "Advocate",
+    "group": "diplomat",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "安静而神秘，鼓舞人心且不知疲倦的理想主义者",
+    "description": "提倡者型人格有着深刻的思想和强烈的信念，这赋予了他们实现目标的创造力、想象力和决心。",
+    "traits": ["理想主义", "洞察力", "富有同情心", "有原则", "深思"],
+    "strengths": ["洞察力强", "有原则", "富有同情心", "创造力", "利他主义"],
+    "weaknesses": ["过度敏感", "追求完美", "容易倦怠", "过于私密", "难以接受批评"],
+    "careers": ["心理咨询师", "作家", "非营利组织", "人力资源", "教育工作者", "社会工作者"],
+    "compatibility": {
+      "best": ["ENTP", "ENFP"],
+      "similar": ["INTJ", "INFP"],
+      "challenging": ["ESTP", "ESTJ"]
+    },
+    "celebrities": [
+      { "name": "甘地", "role": "政治家" },
+      { "name": "马丁·路德·金", "role": "民权领袖" },
+      { "name": "柏拉图", "role": "哲学家" }
+    ],
+    "growth": ["设定边界", "学会接受不完美", "关注自我照顾", "更开放地表达"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "INFP",
+    "name": "调停者",
+    "nameEn": "Mediator",
+    "group": "diplomat",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "诗意、善良的利他主义者，总是热情地为正义事业提供帮助",
+    "description": "调停者型人格是真正的理想主义者，他们总是从最坏的人和事中寻找一丝善意，寻求让事情变得更好的方法。",
+    "traits": ["理想主义", "忠诚", "适应性", "好奇", "富有创造力"],
+    "strengths": ["富有同情心", "创造力强", "开放思想", "灵活适应", "热情洋溢"],
+    "weaknesses": ["过于理想化", "难以处理实际", "自我批评", "难以处理冲突", "情绪化"],
+    "careers": ["艺术家", "作家", "心理咨询师", "教师", "社会工作者", "平面设计师"],
+    "compatibility": {
+      "best": ["ENFJ", "ENTJ"],
+      "similar": ["INFJ", "ISFP"],
+      "challenging": ["ESTJ", "ESTP"]
+    },
+    "celebrities": [
+      { "name": "莎士比亚", "role": "作家" },
+      { "name": "J.R.R. 托尔金", "role": "作家" },
+      { "name": "约翰·列侬", "role": "音乐家" }
+    ],
+    "growth": ["培养现实感", "学会接受批评", "增强行动力", "设定现实目标"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ENFJ",
+    "name": "主人公",
+    "nameEn": "Protagonist",
+    "group": "diplomat",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "有魅力、鼓舞人心的领导者，有着令听众着迷的能力",
+    "description": "主人公型人格是天生的领导者，充满激情和魅力，他们善于激励他人，并为共同的目标而努力。",
+    "traits": ["魅力", "利他", "可靠", "领导力", "天生领袖"],
+    "strengths": ["领导能力", "富有同情心", "善于沟通", "热情洋溢", "值得信赖"],
+    "weaknesses": ["过于理想化", "无私到 detriment", "难以做艰难决定", "易受批评影响", "过于敏感"],
+    "careers": ["教师", "人力资源总监", "非营利组织领导", "政治家", "教练", "顾问"],
+    "compatibility": {
+      "best": ["INFP", "ISFP"],
+      "similar": ["ENFP", "INFJ"],
+      "challenging": ["ISTP", "INTP"]
+    },
+    "celebrities": [
+      { "name": "奥普拉·温弗瑞", "role": "媒体人" },
+      { "name": "巴拉克·奥巴马", "role": "政治家" }
+    ],
+    "growth": ["学会说不", "关注自我需求", "接受不完美", "管理批评"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ENFP",
+    "name": "竞选者",
+    "nameEn": "Campaigner",
+    "group": "diplomat",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "直觉", "value": "N" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "充满热情、有创造力的自由主义者，总是能找到理由微笑",
+    "description": "竞选者型人格是真正自由的精神，他们通常是聚会的焦点，但他们对社交和娱乐的兴趣不如对与他人建立情感联系的享受。",
+    "traits": ["热情", "创造力", "社交", "自由精神", "好奇"],
+    "strengths": ["富有好奇心", "善于观察", "精力充沛", "优秀沟通者", "易于相处"],
+    "weaknesses": ["注意力分散", "难以专注", "思绪飞扬", "情绪化", "压力下表现不佳"],
+    "careers": ["记者", "演员", "顾问", "公关专员", "活动家", "创业者"],
+    "compatibility": {
+      "best": ["INTJ", "INFJ"],
+      "similar": ["ENFJ", "INFP"],
+      "challenging": ["ISTJ", "ISFJ"]
+    },
+    "celebrities": [
+      { "name": "罗宾·威廉姆斯", "role": "演员" },
+      { "name": "威尔·史密斯", "role": "演员" },
+      { "name": "马克·吐温", "role": "作家" }
+    ],
+    "growth": ["培养专注力", "学会管理时间", "接受结构", "增强执行力"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ISTJ",
+    "name": "物流师",
+    "nameEn": "Logistician",
+    "group": "sentinel",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "实际且注重事实的个人，可靠性不容怀疑",
+    "description": "物流师型人格被认为是数量最多、最常见的类型，他们构成了社会的基础，因为他们值得信赖、注重事实、坚韧不拔。",
+    "traits": ["可靠", "务实", "注重事实", "忠诚", "有组织"],
+    "strengths": ["诚实直接", "意志坚定", "负责任", "务实冷静", "注重秩序"],
+    "weaknesses": ["固执己见", "不善判断", "难以适应变化", "过于严厉", "自责"],
+    "careers": ["会计师", "审计师", "数据分析师", "法官", "警官", "军官"],
+    "compatibility": {
+      "best": ["ESFP", "ESTP"],
+      "similar": ["ISFJ", "INTJ"],
+      "challenging": ["ENFP", "ENTP"]
+    },
+    "celebrities": [
+      { "name": "乔治·华盛顿", "role": "政治家" },
+      { "name": "沃伦·巴菲特", "role": "投资家" }
+    ],
+    "growth": ["培养灵活性", "学会表达情感", "接受变化", "放松完美主义"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ISFJ",
+    "name": "守卫者",
+    "nameEn": "Defender",
+    "group": "sentinel",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "非常专注而温暖的保护者，时刻准备着保护爱着的人们",
+    "description": "守卫者型人格是真正利他的人格类型，他们以热情和保护的态度对待他人，但可能在社交场合感到疲惫。",
+    "traits": ["支持", "耐心", "可靠", "观察力", "温暖"],
+    "strengths": ["支持性强", "可靠值得信赖", "观察敏锐", "热情友好", "负责任"],
+    "weaknesses": ["过度谦虚", "情感压抑", "难以接受批评", "过度负荷", "不愿改变"],
+    "careers": ["护士", "行政助理", "咨询师", "小学教师", "社会工作者", "办公室经理"],
+    "compatibility": {
+      "best": ["ESTP", "ESFP"],
+      "similar": ["ISTJ", "INFJ"],
+      "challenging": ["ENTP", "ENTJ"]
+    },
+    "celebrities": [
+      { "name": "特蕾莎修女", "role": "慈善家" },
+      { "name": "金·卡戴珊", "role": "名人" }
+    ],
+    "growth": ["学会说不", "表达自我需求", "接受赞扬", "拥抱改变"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ESTJ",
+    "name": "总经理",
+    "nameEn": "Executive",
+    "group": "sentinel",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "出色的管理者，在管理事情或人的时候无与伦比",
+    "description": "总经理型人格代表了传统和秩序，他们利用自己对是非、对错的理解来团结家庭和社区。",
+    "traits": ["专注", "传统", "有组织", "果断", "诚实"],
+    "strengths": ["专注目标", "意志坚定", "诚实直接", "忠诚可靠", "有条不紊"],
+    "weaknesses": ["固执己见", "不容忍失败", "难以表达情感", "过于严厉", "不耐烦"],
+    "careers": ["军官", "法官", "学校校长", "项目经理", "银行经理", "警官"],
+    "compatibility": {
+      "best": ["ISFP", "INFP"],
+      "similar": ["ESFJ", "ISTJ"],
+      "challenging": ["INTP", "INFP"]
+    },
+    "celebrities": [
+      { "name": "哈里·杜鲁门", "role": "政治家" },
+      { "name": "阿诺·施瓦辛格", "role": "演员/政治家" }
+    ],
+    "growth": ["培养同理心", "接受不同方式", "放松控制", "倾听他人"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ESFJ",
+    "name": "执政官",
+    "nameEn": "Consul",
+    "group": "sentinel",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "判断", "value": "J" }
+    },
+    "tagline": "极度关心他人、社交能力强、总是热心帮助",
+    "description": "执政官型人格对他人的关注发自内心，他们以极大的热情和精力来帮助他人，总是为他人着想。",
+    "traits": ["社交", "传统", "支持", "可靠", "热情"],
+    "strengths": ["实用性强", "社交活跃", "有责任感", "忠诚可靠", "耐心细致"],
+    "weaknesses": ["过于在意他人看法", "难以创新", "脆弱敏感", "回避冲突", "自私自利"],
+    "careers": ["教师", "人力资源专员", "公关专员", "办公室行政", "咨询师", "活动策划"],
+    "compatibility": {
+      "best": ["ISFP", "INFP"],
+      "similar": ["ESTJ", "ENFJ"],
+      "challenging": ["INTP", "INTJ"]
+    },
+    "celebrities": [
+      { "name": "泰勒·斯威夫特", "role": "歌手" },
+      { "name": "比尔·克林顿", "role": "政治家" }
+    ],
+    "growth": ["培养独立性", "学会接受批评", "关注自我需求", "拥抱变化"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ISTP",
+    "name": "鉴赏家",
+    "nameEn": "Virtuoso",
+    "group": "explorer",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "大胆而实际的实验家，擅长使用各种工具",
+    "description": "鉴赏家型人格通常是天生的制造者，他们从学习事物是如何运作的过程中获得乐趣，他们会用双手和眼睛拆解并重建一切。",
+    "traits": ["好奇", "实用", "放松", "灵活", "解决问题"],
+    "strengths": ["乐观活力", "创造力强", "实际理性", "突发状况处理", "适应力强"],
+    "weaknesses": ["情感淡漠", "容易厌倦", "冒险行为", "隐私过度", "承诺困难"],
+    "careers": ["工程师", "技师", "飞行员", "警官", "消防员", "运动员"],
+    "compatibility": {
+      "best": ["ESFJ", "ESTJ"],
+      "similar": ["ISFP", "INTP"],
+      "challenging": ["ENFJ", "INFJ"]
+    },
+    "celebrities": [
+      { "name": "汤姆·克鲁斯", "role": "演员" },
+      { "name": "熊格里尔斯", "role": "探险家" }
+    ],
+    "growth": ["培养长期规划", "表达情感", "建立承诺", "考虑他人"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ISFP",
+    "name": "探险家",
+    "nameEn": "Adventurer",
+    "group": "explorer",
+    "dimensions": {
+      "EI": { "label": "内向", "value": "I" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "灵活有魅力的艺术家，时刻准备着探索和体验新事物",
+    "description": "探险家型人格是真正的艺术家，但不一定是典型意义上的画家。他们利用自己的审美和设计来创造令人惊叹的事物。",
+    "traits": ["艺术", "敏感", "友善", "谦逊", "现实"],
+    "strengths": ["富有魅力", "想象力丰富", "创造力强", "热情洋溢", "善解人意"],
+    "weaknesses": ["过于敏感", "缺乏长期规划", "难以预测", "独立倾向", "情感波动"],
+    "careers": ["艺术家", "设计师", "音乐家", "摄影师", "时装设计师", "景观建筑师"],
+    "compatibility": {
+      "best": ["ESTJ", "ESFJ"],
+      "similar": ["ISTP", "INFP"],
+      "challenging": ["ENTJ", "ESTJ"]
+    },
+    "celebrities": [
+      { "name": "鲍勃·迪伦", "role": "音乐家" },
+      { "name": "约翰尼·德普", "role": "演员" },
+      { "name": "迈克尔·杰克逊", "role": "音乐家" }
+    ],
+    "growth": ["培养长期目标", "增强自信", "学会表达需求", "减少敏感性"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ESTP",
+    "name": "企业家",
+    "nameEn": "Entrepreneur",
+    "group": "explorer",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "思考", "value": "T" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "聪明精力充沛的感知者，真心享受生活在边缘",
+    "description": "企业家型人格总是对周围环境产生影响，他们以行动为导向，善于发现机会并快速行动。",
+    "traits": ["大胆", "直接", "感知敏锐", "实用", "精力充沛"],
+    "strengths": ["观察力敏锐", "适应力强", "精力充沛", "实用主义", "不怕冒险"],
+    "weaknesses": ["冲动", "缺乏耐心", "不善规划", "可能冒险", "情感淡漠"],
+    "careers": ["销售代表", "企业家", "警察", "股票经纪人", "消防员", "公关"],
+    "compatibility": {
+      "best": ["ISFJ", "ISTJ"],
+      "similar": ["ESFP", "ISTP"],
+      "challenging": ["INFJ", "INTJ"]
+    },
+    "celebrities": [
+      { "name": "唐纳德·特朗普", "role": "政治家/商人" },
+      { "name": "麦当娜", "role": "歌手" },
+      { "name": "埃迪·墨菲", "role": "演员" }
+    ],
+    "growth": ["培养长远思考", "学习规划", "关注他人感受", "培养耐心"],
+    "source": "16Personalities"
+  },
+  {
+    "type": "ESFP",
+    "name": "表演者",
+    "nameEn": "Entertainer",
+    "group": "explorer",
+    "dimensions": {
+      "EI": { "label": "外向", "value": "E" },
+      "SN": { "label": "实感", "value": "S" },
+      "TF": { "label": "情感", "value": "F" },
+      "JP": { "label": "感知", "value": "P" }
+    },
+    "tagline": "自然的表演者，生活充满激情和乐趣",
+    "description": "表演者型人格总是聚会的焦点，他们以娱乐他人为乐，周围的人总能感受到他们的热情和乐观。",
+    "traits": ["热情", "社交", "自发", "务实", "观察力"],
+    "strengths": ["大胆原创", "美学感知", "表演能力", "实用务实", "观察敏锐"],
+    "weaknesses": ["敏感", "厌恶冲突", "缺乏长期规划", "难以集中", "容易厌倦"],
+    "careers": ["演员", "销售", "咨询师", "儿童教育", "活动策划", "公关"],
+    "compatibility": {
+      "best": ["ISFJ", "ISTJ"],
+      "similar": ["ESTP", "ISFP"],
+      "challenging": ["INTJ", "INFJ"]
+    },
+    "celebrities": [
+      { "name": "玛丽莲·梦露", "role": "演员" },
+      { "name": "史蒂文·斯皮尔伯格", "role": "导演" },
+      { "name": "罗纳德·里根", "role": "政治家/演员" }
+    ],
+    "growth": ["培养长期目标", "学会专注", "面对冲突", "规划未来"],
+    "source": "16Personalities"
+  }
+]

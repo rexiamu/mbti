@@ -1,3 +1,4 @@
+import QRCode from 'qrcode';
 import { Answers, PersonalityType } from './types';
 
 /**
@@ -25,6 +26,9 @@ const DIMENSION_LABELS: Record<keyof Answers, string> = {
   TF: '思考 / 情感',
   JP: '判断 / 感知',
 };
+
+const FONT_FAMILY =
+  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif";
 
 type Percentages = Record<keyof Answers, { positive: number; negative: number }>;
 
@@ -70,26 +74,30 @@ export function getGroupColor(group: PersonalityType['group']): string {
   return GROUP_COLORS[group];
 }
 
+export interface ShareImageOptions {
+  /** 分享链接，提供时会在图片底部绘制二维码。 */
+  shareUrl?: string;
+}
+
 /**
  * 生成分享图片（PNG Blob）。全部在浏览器端用 Canvas 绘制，
  * 因此可以在静态导出的站点上离线使用，无需服务端参与。
  */
 export async function generateShareImage(
   personality: PersonalityType,
-  percentages: Percentages
+  percentages: Percentages,
+  options: ShareImageOptions = {}
 ): Promise<Blob> {
   const scale = 2;
   const width = 640;
-  const height = 960;
+  const paddingX = 80;
+  const barBlockHeight = 66;
 
   const canvas = document.createElement('canvas');
-  canvas.width = width * scale;
-  canvas.height = height * scale;
   const ctx = canvas.getContext('2d');
   if (!ctx) {
     throw new Error('当前浏览器不支持 Canvas，无法生成分享图');
   }
-  ctx.scale(scale, scale);
 
   // 等待网页字体加载完成，避免中文/英文回退导致排版跳动。
   if (typeof document !== 'undefined' && 'fonts' in document) {
@@ -100,9 +108,32 @@ export async function generateShareImage(
     }
   }
 
+  // 先测量标语行数，据此决定画布高度。
+  ctx.font = `400 22px ${FONT_FAMILY}`;
+  const taglineLines = wrapText(ctx, `“${personality.tagline}”`, width - paddingX * 2).slice(0, 3);
+
+  const hasQr = Boolean(options.shareUrl);
+  const topRuleY = 56;
+  const groupLabelY = 122;
+  const typeCodeY = 192;
+  const nameY = 272;
+  const taglineStartY = 322;
+  const taglineStep = 32;
+  const dividerY = taglineStartY + taglineLines.length * taglineStep + 16;
+  const barsStartY = dividerY + 56;
+  const barsEndY = barsStartY + DIMENSIONS.length * barBlockHeight;
+  const qrCardSize = 136;
+  const qrCardY = barsEndY + 20;
+  const qrCaptionY = qrCardY + qrCardSize + 30;
+  const brandY = (hasQr ? qrCaptionY : barsEndY + 20) + 34;
+  const subtitleY = brandY + 30;
+  const height = subtitleY + 56;
+
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  ctx.scale(scale, scale);
+
   const accent = GROUP_COLORS[personality.group];
-  const fontFamily =
-    "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif";
 
   // 背景渐变
   const bg = ctx.createLinearGradient(0, 0, 0, height);
@@ -113,83 +144,99 @@ export async function generateShareImage(
 
   // 顶部装饰色块
   ctx.fillStyle = accent;
-  roundRect(ctx, 48, 56, width - 96, 6, 3);
+  roundRect(ctx, 48, topRuleY, width - 96, 6, 3);
   ctx.fill();
 
   ctx.textAlign = 'center';
 
   // 分组标签
   ctx.fillStyle = hexToRgba(accent, 0.9);
-  ctx.font = `600 20px ${fontFamily}`;
-  ctx.fillText(`${GROUP_LABELS[personality.group]} · ${personality.nameEn}`, width / 2, 122);
+  ctx.font = `600 20px ${FONT_FAMILY}`;
+  ctx.fillText(`${GROUP_LABELS[personality.group]} · ${personality.nameEn}`, width / 2, groupLabelY);
 
   // 类型代码
   ctx.fillStyle = accent;
-  ctx.font = `800 104px ${fontFamily}`;
+  ctx.font = `800 104px ${FONT_FAMILY}`;
   ctx.textBaseline = 'middle';
-  ctx.fillText(personality.type, width / 2, 192);
+  ctx.fillText(personality.type, width / 2, typeCodeY);
 
   // 中文名称
-  ctx.fillStyle = '#1B1B1F';
   ctx.textBaseline = 'alphabetic';
-  ctx.font = `700 40px ${fontFamily}`;
-  ctx.fillText(personality.name, width / 2, 272);
+  ctx.fillStyle = '#1B1B1F';
+  ctx.font = `700 40px ${FONT_FAMILY}`;
+  ctx.fillText(personality.name, width / 2, nameY);
 
   // 标语（自动换行）
   ctx.fillStyle = '#6B7280';
-  ctx.font = `400 22px ${fontFamily}`;
-  const taglineLines = wrapText(ctx, `“${personality.tagline}”`, width - 160);
-  taglineLines.slice(0, 3).forEach((line, index) => {
-    ctx.fillText(line, width / 2, 322 + index * 32);
+  ctx.font = `400 22px ${FONT_FAMILY}`;
+  taglineLines.forEach((line, index) => {
+    ctx.fillText(line, width / 2, taglineStartY + index * taglineStep);
   });
 
   // 分隔线
-  const dividerY = 322 + Math.min(taglineLines.length, 3) * 32 + 16;
   ctx.strokeStyle = hexToRgba(accent, 0.25);
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(80, dividerY);
-  ctx.lineTo(width - 80, dividerY);
+  ctx.moveTo(paddingX, dividerY);
+  ctx.lineTo(width - paddingX, dividerY);
   ctx.stroke();
 
   // 维度条形图
-  let cursorY = dividerY + 56;
-  DIMENSIONS.forEach((dim) => {
+  DIMENSIONS.forEach((dim, index) => {
     const detail = personality.dimensions[dim];
     const percent = percentages[dim].positive;
+    const labelY = barsStartY + index * barBlockHeight;
 
     ctx.textAlign = 'left';
     ctx.fillStyle = '#1B1B1F';
-    ctx.font = `600 24px ${fontFamily}`;
-    ctx.fillText(detail.label, 80, cursorY);
+    ctx.font = `600 24px ${FONT_FAMILY}`;
+    ctx.fillText(detail.label, paddingX, labelY);
 
     ctx.textAlign = 'right';
     ctx.fillStyle = accent;
-    ctx.font = `700 24px ${fontFamily}`;
-    ctx.fillText(`${detail.value}  ${percent}%`, width - 80, cursorY);
+    ctx.font = `700 24px ${FONT_FAMILY}`;
+    ctx.fillText(`${detail.value}  ${percent}%`, width - paddingX, labelY);
 
-    const barY = cursorY + 18;
+    const barY = labelY + 18;
     ctx.fillStyle = '#EDEDF2';
-    roundRect(ctx, 80, barY, width - 160, 14, 7);
+    roundRect(ctx, paddingX, barY, width - paddingX * 2, 14, 7);
     ctx.fill();
 
     ctx.fillStyle = accent;
-    const fillWidth = Math.max(14, ((width - 160) * percent) / 100);
-    roundRect(ctx, 80, barY, fillWidth, 14, 7);
+    const fillWidth = Math.max(14, ((width - paddingX * 2) * percent) / 100);
+    roundRect(ctx, paddingX, barY, fillWidth, 14, 7);
     ctx.fill();
-
-    cursorY = barY + 66;
   });
+
+  // 二维码
+  if (options.shareUrl) {
+    const qrImage = await createQrImage(options.shareUrl);
+    if (qrImage) {
+      const cardX = (width - qrCardSize) / 2;
+      ctx.fillStyle = '#FFFFFF';
+      roundRect(ctx, cardX, qrCardY, qrCardSize, qrCardSize, 20);
+      ctx.fill();
+
+      const qrInset = 14;
+      const qrSize = qrCardSize - qrInset * 2;
+      ctx.drawImage(qrImage, cardX + qrInset, qrCardY + qrInset, qrSize, qrSize);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6B7280';
+      ctx.font = `500 20px ${FONT_FAMILY}`;
+      ctx.fillText('扫码测一测你的人格类型', width / 2, qrCaptionY);
+    }
+  }
 
   // 底部信息
   ctx.textAlign = 'center';
   ctx.fillStyle = hexToRgba(accent, 0.95);
-  ctx.font = `700 26px ${fontFamily}`;
-  ctx.fillText('MBTI 16型人格测试', width / 2, height - 96);
+  ctx.font = `700 26px ${FONT_FAMILY}`;
+  ctx.fillText('MBTI 16型人格测试', width / 2, brandY);
 
   ctx.fillStyle = '#9CA3AF';
-  ctx.font = `400 20px ${fontFamily}`;
-  ctx.fillText('发现真实的自己 · 测出你的人格类型', width / 2, height - 62);
+  ctx.font = `400 20px ${FONT_FAMILY}`;
+  ctx.fillText('发现真实的自己 · 测出你的人格类型', width / 2, subtitleY);
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
@@ -199,6 +246,30 @@ export async function generateShareImage(
         reject(new Error('生成分享图失败，请重试'));
       }
     }, 'image/png');
+  });
+}
+
+async function createQrImage(url: string): Promise<HTMLImageElement | null> {
+  try {
+    const dataUrl = await QRCode.toDataURL(url, {
+      errorCorrectionLevel: 'M',
+      margin: 1,
+      width: 480,
+      color: { dark: '#1B1B1F', light: '#FFFFFF' },
+    });
+    return await loadImage(dataUrl);
+  } catch {
+    // 二维码生成失败时不影响整体分享图。
+    return null;
+  }
+}
+
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error('图片加载失败'));
+    image.src = src;
   });
 }
 
@@ -259,3 +330,4 @@ function hexToRgba(hex: string, alpha: number): string {
 }
 
 export { DIMENSIONS, DIMENSION_LABELS, GROUP_COLORS };
+

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Answers, PersonalityType } from '@/lib/types';
 import { buildShareText, DIMENSIONS, generateShareImage, getShareUrl } from '@/lib/share';
 import {
@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Check, Copy, Download, Loader2, Share2, Link2 } from 'lucide-react';
+import { Check, Copy, Download, ImageUp, Loader2, Share2, Link2 } from 'lucide-react';
 
 type Percentages = Record<keyof Answers, { positive: number; negative: number }>;
 
@@ -30,15 +30,15 @@ export function ShareDialog({
   percentages,
   testLength,
 }: ShareDialogProps) {
-  const [image, setImage] = useState<{ key: string; url: string } | null>(null);
+  const [image, setImage] = useState<{ key: string; url: string; blob: Blob } | null>(null);
   const [errorState, setErrorState] = useState<{ key: string; message: string } | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  const blobRef = useRef<{ key: string; blob: Blob } | null>(null);
   const generatedKeyRef = useRef<string | null>(null);
 
   const percentKey = DIMENSIONS.map((dim) => percentages[dim].positive).join('-');
   const resultKey = `${personality.type}:${percentKey}`;
+  const shareUrl = getShareUrl();
   const shareText = buildShareText(personality, percentages, testLength);
 
   const imageUrl = image?.key === resultKey ? image.url : null;
@@ -54,12 +54,11 @@ export function ShareDialog({
     let cancelled = false;
     let settled = false;
 
-    generateShareImage(personality, percentages)
+    generateShareImage(personality, percentages, { shareUrl })
       .then((blob) => {
         settled = true;
         if (cancelled) return;
-        blobRef.current = { key: resultKey, blob };
-        setImage({ key: resultKey, url: URL.createObjectURL(blob) });
+        setImage({ key: resultKey, url: URL.createObjectURL(blob), blob });
       })
       .catch((error: unknown) => {
         settled = true;
@@ -76,7 +75,7 @@ export function ShareDialog({
       // 尚未完成就被中断时，允许下次重新生成。
       if (!settled) generatedKeyRef.current = null;
     };
-  }, [open, resultKey, personality, percentages]);
+  }, [open, resultKey, personality, percentages, shareUrl]);
 
   // 组件卸载 / 图片切换时释放 ObjectURL
   useEffect(() => {
@@ -92,6 +91,31 @@ export function ShareDialog({
     return () => window.clearTimeout(timer);
   }, [feedback]);
 
+  // 分享图片文件（支持 Web Share Level 2 的浏览器可直接把 PNG 发给 App）
+  const imageFile = useMemo(() => {
+    if (typeof File === 'undefined') return null;
+    if (!image || image.key !== resultKey) return null;
+    return new File([image.blob], `MBTI-${personality.type}.png`, { type: 'image/png' });
+  }, [image, resultKey, personality.type]);
+
+  const canShareImage =
+    imageFile !== null &&
+    typeof navigator !== 'undefined' &&
+    typeof navigator.canShare === 'function' &&
+    navigator.canShare({ files: [imageFile] });
+
+  const shareImageFile = async () => {
+    if (!imageFile) return;
+    try {
+      await navigator.share({
+        files: [imageFile],
+        title: `我的 MBTI 人格类型是 ${personality.type} · ${personality.name}`,
+        text: shareText,
+      });
+    } catch {
+      // 用户取消分享，无需提示
+    }
+  };
 
   const copyText = async () => {
     try {
@@ -139,9 +163,8 @@ export function ShareDialog({
   };
 
   const downloadImage = () => {
-    const current = blobRef.current;
-    if (!current || current.key !== resultKey) return;
-    const url = URL.createObjectURL(current.blob);
+    if (!image || image.key !== resultKey) return;
+    const url = URL.createObjectURL(image.blob);
     const anchor = document.createElement('a');
     anchor.href = url;
     anchor.download = `MBTI-${personality.type}.png`;
@@ -192,10 +215,20 @@ export function ShareDialog({
 
         {/* 操作按钮 */}
         <div className="grid grid-cols-2 gap-2">
+          {canShareImage && (
+            <Button onClick={shareImageFile} className="col-span-2">
+              <ImageUp className="w-4 h-4 mr-2" />
+              分享图片
+            </Button>
+          )}
           {canNativeShare && (
-            <Button onClick={shareNative} className="col-span-2">
+            <Button
+              onClick={shareNative}
+              variant={canShareImage ? 'outline' : 'default'}
+              className="col-span-2"
+            >
               <Share2 className="w-4 h-4 mr-2" />
-              分享给朋友
+              分享文案与链接
             </Button>
           )}
           <Button variant="outline" onClick={copyText}>

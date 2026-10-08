@@ -240,6 +240,7 @@ export default function Home() {
             type={state.result}
             answers={state.answers}
             maxScores={maxScores}
+            testLength={state.testLength ?? 'full'}
             onRestart={handleRestart}
           />
         );

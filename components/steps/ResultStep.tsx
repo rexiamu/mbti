@@ -10,8 +10,10 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ShareDialog } from '@/components/ShareDialog';
 import {
   RefreshCw,
+  Share2,
   Sparkles,
   TrendingUp,
   Users,
@@ -27,10 +29,12 @@ interface ResultStepProps {
   answers: Answers;
   maxScores: Record<keyof Answers, number>;
   onRestart: () => void;
+  testLength?: 'quick' | 'full';
 }
 
-export function ResultStep({ type, answers, maxScores, onRestart }: ResultStepProps) {
+export function ResultStep({ type, answers, maxScores, onRestart, testLength = 'full' }: ResultStepProps) {
   const [showDetails, setShowDetails] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const personality = getTypeByCode(type) as PersonalityType;
   const percentages = getDimensionPercentages(answers, maxScores);
 
@@ -276,6 +280,12 @@ export function ResultStep({ type, answers, maxScores, onRestart }: ResultStepPr
           </div>
         )}
 
+        {/* 分享按钮 */}
+        <Button onClick={() => setShowShare(true)} className="w-full" size="lg">
+          <Share2 className="w-4 h-4 mr-2" />
+          分享测试结果
+        </Button>
+
         <Separator />
 
         {/* 底部按钮 */}
@@ -291,6 +301,14 @@ export function ResultStep({ type, answers, maxScores, onRestart }: ResultStepPr
             查看其他类型
           </Link>
         </div>
+
+        <ShareDialog
+          open={showShare}
+          onOpenChange={setShowShare}
+          personality={personality}
+          percentages={percentages}
+          testLength={testLength}
+        />
       </div>
     </div>
   );
